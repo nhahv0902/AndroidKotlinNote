@@ -48,7 +48,8 @@ class LoginActivity : BaseActivity() {
         val animation: Animation = AnimationUtils.loadAnimation(this, R.anim.translate_view_login)
         mBinding?.let {
             it.textWellCome.startAnimation(animation)
-            it.linearButton.startAnimation(animation)
+            it.frameGoogle.startAnimation(animation)
+            it.frameFacebook.startAnimation(animation)
         }
     }
 }

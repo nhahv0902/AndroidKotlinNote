@@ -4,6 +4,7 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.os.Handler
 import com.android.databinding.library.baseAdapters.BR
+import com.nhahv0902.kotlin_note.screen.main.MainActivity
 import com.nhahv0902.kotlin_note.utils.TimeUtil
 
 
@@ -47,9 +48,10 @@ class LoginViewModel(activity: LoginActivity) : BaseObservable(), LoginContract.
     }
 
     override fun onClickLoginFacebook() {
-
+        mActivity.startActivity(MainActivity.newIntent(mActivity.applicationContext))
     }
 
     override fun onClickLoginGoogle() {
+        mActivity.startActivity(MainActivity.newIntent(mActivity.applicationContext))
     }
 }
