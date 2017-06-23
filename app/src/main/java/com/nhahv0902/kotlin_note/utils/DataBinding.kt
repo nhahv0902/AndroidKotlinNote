@@ -3,6 +3,7 @@ package com.nhahv0902.kotlin_note.utils
 import android.databinding.BindingAdapter
 import android.graphics.Typeface
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.view.ViewPager
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -26,21 +27,34 @@ fun layoutMargin(view: View, float: Float) {
     view.layoutParams = layoutParams
 }
 
-@BindingAdapter("bottom_navigation")
-fun bottomNavigation(view: BottomNavigationView, viewModel: MainViewModel) {
+@BindingAdapter("bottom_navigation", "view_pager")
+fun bottomNavigation(view: BottomNavigationView, viewModel: MainViewModel, viewPager: ViewPager) {
     view.setOnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_notebook -> {
                 viewModel.onStartNotebook()
-                return@setOnNavigationItemSelectedListener true
+                viewPager.currentItem = 0
             }
             R.id.navigation_note_create -> {
-                viewModel.onStartSetting()
+                viewModel.onStartNoteCreation()
+            }
+            R.id.navigation_setting -> {
+                viewPager.currentItem = 1
             }
             else -> {
                 return@setOnNavigationItemSelectedListener false
             }
         }
-        false
+        true
     }
+
+    viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        override fun onPageScrollStateChanged(state: Int) {}
+
+        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+
+        override fun onPageSelected(position: Int) {
+            view.selectedItemId = if (position == 0) R.id.navigation_notebook else R.id.navigation_setting
+        }
+    })
 }
